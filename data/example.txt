@@ -1,0 +1,51 @@
+{                       
+  "topic": "org.fedoraproject.dev.anitya.project.version.update",
+  "msg_id": "2017-c82d1449-7488-4635-a939-fd5038c0d101",
+  "msg": {      
+    "message": {   
+      "versions": [
+        "v1.1",
+        "v1.0"
+      ],                                   
+      "project": {               
+        "versions": [     
+          "v1.1",   
+          "v1.0"        
+        ],                       
+        "version_url": "shainer/anitya-test",
+        "updated_on": 1492949868.0,                        
+        "backend": "GitHub",
+        "regex": null,
+        "version": "v1.1",
+        "created_on": 1492949866.0,
+        "name": "Anitya Test",
+        "homepage": "https://github.com/shainer/anitya-test",
+        "id": 1          
+      },
+      "old_version": "v1.0",
+      "packages": [],           
+      "odd_change": false,
+			"agent": "anitya",
+			"upstream_version": "v1.1"
+    },
+    "project": {
+      "versions": [
+        "v1.1",
+        "v1.0"
+      ],
+      "version_url": "shainer/anitya-test",
+      "updated_on": 1492956677.0,
+      "backend": "GitHub",
+      "regex": null,
+      "version": "v1.1",
+      "created_on": 1492949866.0,
+      "name": "Anitya Test",
+      "homepage": "https://github.com/shainer/anitya-test",
+      "id": 1
+    },
+    "distro": null
+  },
+  "username": "shainer",
+  "i": 1,
+  "timestamp": 1492960277
+}
