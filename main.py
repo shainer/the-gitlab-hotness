@@ -27,7 +27,18 @@ def GetToken():
     with open('data/token.txt', 'r') as f:
         tk = f.read()
 
-    return tk
+    return tk.rstrip()
+
+def GetActionForPackage(package_name):
+    """Returns a name identifying the action to take when a new version
+    is released for the package.
+
+    At the moment the supported action names are "bug" and "rebuild".
+    """
+
+    # For now we always return bug. I'll add more logic when we figure out
+    # the best way to store the intended action for the packages.
+    return "rebuild"
 
 if __name__ == '__main__':
     glab = gitlab.Gitlab('https://gitlab.chakralinux.org',
@@ -43,21 +54,27 @@ if __name__ == '__main__':
             print('Received message for topic %s, ignoring' % topic)
             continue
 
-        print('Received message on topic %s, filing bug' % topic)
+        print('Received message on topic %s' % topic)
 
-        bug_title = ('[GitLab hotness] %s released version %s' %
-                     (msg['msg']['message']['project']['name'],
-                      msg['msg']['message']['project']['version']))
+        project_name = msg['msg']['message']['project']['name']
+        project_version = msg['msg']['message']['project']['version']
 
-        bug_message = 'Website: %s' % msg['msg']['message']['project']['homepage']
-        bug_assignee = 15  # shainer
+        if GetActionForPackage(project_name) == 'bug':
+            print('-- Filing new bug')
 
-        try:
-            issue = desktop_repo.issues.create({'title': bug_title,
-                                                'description': bug_message,
-                                                'assignee_ids': [bug_assignee]})
-        except gitlab.GitlabCreateError as err:
-            print('Error creating bug: %s' % err)
+            bug_title = ('[GitLab hotness] %s released version %s' %
+                        (project_name, project_version))
 
-        print('Bug %d created successfully' % issue.id)
+            bug_message = 'Website: %s' % msg['msg']['message']['project']['homepage']
+            bug_assignee = 15  # shainer
 
+            try:
+                issue = desktop_repo.issues.create({'title': bug_title,
+                                                    'description': bug_message,
+                                                    'assignee_ids': [bug_assignee]})
+            except gitlab.GitlabCreateError as err:
+                print('Error creating bug: %s' % err)
+
+            print('Bug %d created successfully' % issue.id)
+        elif GetActionForPackage(project_name) == 'rebuild':
+            print('-- Triggering automated rebuild [TODO]')

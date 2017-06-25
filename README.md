@@ -1,2 +1,3 @@
 # the-gitlab-hotness
-Listens on Anitya fedmsg topic for new releases and creates a new bug on Gitlab
+Listens on Anitya fedmsg topic for new releases and performs some related action
+on the Chakra GitLab instance.
